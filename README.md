@@ -14,7 +14,10 @@ RUN tar -vxf istiohealthcheck.tar.gz
 
 Then somewhere in your Docker Entrypoint:
 
-`nohup ./istio-healthcheck &`
+`nohup HEALTHCHECK_ADDRESS_AND_PORT=http://localhost:3000/healthz LISTEN_PORT=:3001 ./istio-healthcheck &`
+
+*NOTE: The environment variables control what port the healthcheck server is bound to through the OS env var "LISTEN_PORT" and it will check the health (via HTTP GET) of anything listed in the "HEALTHCHECK_ADDRESS_AND_PORT env var.*
+
 
 ## Contributing
 * You can contribute via PR and then you'll need `goreleaser` to actually run a release
